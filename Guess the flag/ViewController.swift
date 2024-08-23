@@ -113,6 +113,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setup()
         askQuestion()
+        setupNavigationBar()
     }
     
     private func setup() {
@@ -150,6 +151,16 @@ class ViewController: UIViewController {
             scoreLabel.topAnchor.constraint(equalTo: button3.bottomAnchor, constant: 32),
             scoreLabel.leadingAnchor.constraint(equalTo: button3.leadingAnchor)
         ])
+    }
+    
+    func setupNavigationBar() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose, target: self, action: #selector(infoTapped))
+    }
+    
+    @objc func infoTapped() {
+        let viewController = UIActivityViewController(activityItems: ["Check my score: \(score)"], applicationActivities: [])
+        viewController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(viewController, animated: true)
     }
     
     func askQuestion(action: UIAlertAction! = nil) {
